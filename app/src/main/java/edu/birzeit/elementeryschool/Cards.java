@@ -19,11 +19,13 @@ public class Cards extends AppCompatActivity {
     private DAPhysics dataAccess = new DAPhysics();
     private List<Physics> questions;
     private int questionNo =0;
+    private  TextView motivation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
         text = findViewById(R.id.info_text);
+        motivation = findViewById(R.id.motivation);
         questions = dataAccess.getQuestionsByType("type Question");
 
     }
@@ -32,6 +34,7 @@ public class Cards extends AppCompatActivity {
         if(questionNo < questions.size()) {
             TypeQuestions tq = (TypeQuestions) questions.get(questionNo++);
             text.setText(tq.toString());
+            motivation.setText(tq.getEncouraging_phrase());
         }else{
             questionNo =0;
         }

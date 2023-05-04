@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1CCCC"
+    android:background="#A8A1E9"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Cards">
@@ -12,23 +12,37 @@
     <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="300dp"
-        android:layout_marginTop="-16dp"
         android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="32dp"
         app:cardCornerRadius="4dp">
 
         <TextView
             android:id="@+id/info_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#C38383"
+            android:background="#E6DEDE"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:onClick="ChangeCard"
             android:padding="16dp"
+            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/motivation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#8ABEDC"
+        android:fontFamily="sans-serif-medium"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
 </LinearLayout>
