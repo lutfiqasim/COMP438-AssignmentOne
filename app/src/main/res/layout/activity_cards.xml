@@ -40,6 +40,7 @@
         android:layout_marginTop="16dp"
         android:background="#8ABEDC"
         android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"

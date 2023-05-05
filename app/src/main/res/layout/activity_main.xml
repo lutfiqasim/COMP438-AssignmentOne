@@ -19,16 +19,17 @@
         android:fontFamily="sans-serif"
         android:onClick="OpenSlideShow"
         android:text="Slide Show" />
+
     <Button
         android:id="@+id/calculation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="80dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="80dp"
         android:fontFamily="sans-serif"
         android:onClick="OpenExercises"
-        android:text="Try Some exercises" />
+        android:text="@string/try_some_exercises" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"

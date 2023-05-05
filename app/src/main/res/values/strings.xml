@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">ElementerySchool</string>
     <string name="mainText">Let\'s Improve our knowledge together 😉</string>
+    <string name="try_some_exercises">Try Some exercises</string>
+    <string name="finalCardText">Well Done\n Take the knowledge and use it in your studies And don\'t forget to come back later for more😎😁</string>
 </resources>

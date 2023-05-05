@@ -36,6 +36,7 @@ public class Cards extends AppCompatActivity {
             text.setText(tq.toString());
             motivation.setText(tq.getEncouraging_phrase());
         }else{
+            text.setText(R.string.finalCardText);
             questionNo =0;
         }
     }
