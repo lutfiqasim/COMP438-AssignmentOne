@@ -1,106 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A8A1E9"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".Calculation">
 
-    <TextView
-        android:id="@+id/question"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/calculationrecycler"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="#B5AFEA"
-        android:fontFamily="sans-serif-medium"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#000000" />
-
-    <LinearLayout
-        android:layout_width="400dp"
-        android:layout_height="234dp"
-        android:background="#A8A1E9">
-
-        <RadioGroup
-            android:id="@+id/group1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:background="#F2E7E7">
-
-            <RadioButton
-                android:id="@+id/choice1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RadioButton"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:id="@+id/choice2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RadioButton"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:id="@+id/choice3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RadioButton"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:id="@+id/choice4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RadioButton"
-                android:textColor="@color/black" />
-        </RadioGroup>
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="vertical"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="50dp"
-        android:background="#A8A1E9"
-        android:orientation="horizontal">
-
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/calculationrecycler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/checkAnswer"
+            android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:onClick="CheckAnswer"
-            android:text="Check Answer" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="#A8A1E9"
-            android:onClick="ShowHint"
-            android:padding="-5dp"
-            android:paddingTop="-50dp"
-            app:srcCompat="@drawable/hint_" />
+            android:layout_gravity="bottom|end"
+            android:text="Next Questions" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/motivation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:background="#B5AFEA"
-        android:fontFamily="sans-serif-medium"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/black" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

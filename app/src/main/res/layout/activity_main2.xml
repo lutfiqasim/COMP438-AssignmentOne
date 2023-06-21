@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity2"
+    android:background="@drawable/background1">
+
+
+    <Button
+        android:id="@+id/slideShow"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="468dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif"
+        android:onClick="OpenSlideShow"
+        android:text="Slide Show" />
+
+    <Button
+        android:id="@+id/calculation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="sans-serif"
+        android:onClick="OpenExercises"
+        android:text="@string/try_some_exercises" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+
+        android:text="@string/mainText"
+        android:textAlignment="center"
+        android:background="@color/cardview_light_background"
+        android:textSize="20sp" />
+
+
+
+</LinearLayout>

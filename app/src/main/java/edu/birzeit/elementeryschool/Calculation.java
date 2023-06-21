@@ -1,7 +1,12 @@
 package edu.birzeit.elementeryschool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,113 +16,73 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.List;
 import java.util.Random;
 
 import edu.birzeit.elementeryschool.Model.CalculateQuestions;
 import edu.birzeit.elementeryschool.Model.DAPhysics;
 import edu.birzeit.elementeryschool.Model.Physics;
+import edu.birzeit.elementeryschool.Model.TypeQuestions;
 
 public class Calculation extends AppCompatActivity {
-    private TextView question;
-    private Button btn;
-    private ImageButton imgbtn;
-    private RadioButton r1;
-    private RadioButton r2;
-    private RadioButton r3;
-    private RadioButton r4;
-    private  TextView motivation;
-    private RadioGroup radiosGroup;
+    RecyclerView recyclerView;
     private DAPhysics dataAccess = new DAPhysics();
-    private CalculateQuestions currentQuestion;
-    private int userScore =0;
-    private  int questionNumber= 0;
-    private List<Physics> questions;
+
+    private int userScore = 0;
+
+    private int questionNumber = 0;
+    private int questionShown = 0;
+    public static int currentPos;
+    private List<CalculateQuestions> questions;
+    CalculationAdapters adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculation);
-        questions=dataAccess.getQuestionsByType("calculation Question");
-        btn = (Button) findViewById(R.id.checkAnswer);
-        imgbtn = (ImageButton) findViewById(R.id.imageButton);
-        radiosGroup = (RadioGroup) findViewById(R.id.group1);
-        r1 = (RadioButton) findViewById(R.id.choice1);
-        r2 = (RadioButton) findViewById(R.id.choice2);
-        r3 = (RadioButton) findViewById(R.id.choice3);
-        r4 = (RadioButton) findViewById(R.id.choice4);
-        question = (TextView)findViewById(R.id.question);
-        motivation =(TextView) findViewById(R.id.motivation);
-        goToNextQuestion();
+        SharedPreferences sharedPreferences = getSharedPreferences("SchoolSystem", Context.MODE_PRIVATE);
+        String q = sharedPreferences.getString("calculationQuestion", "");
+        Gson gson = new Gson();
+        questions = gson.fromJson(q, new TypeToken<List<CalculateQuestions>>() {
+        }.getType());
+//        Physics[] questions = dataAccess.getQuestionsByType("calculation Question").toArray(new Physics[0]);
+        recyclerView = findViewById(R.id.calculationrecycler);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        adapter = new CalculationAdapter(questions, 0);
+        adapter = new CalculationAdapters(getApplicationContext(), questions.toArray(new Physics[0]), 0);
+        recyclerView.setAdapter(adapter);
+        Button nextButton = findViewById(R.id.nextButton);
+
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPos = adapter.getItemCount();// Get the current position
+                System.out.println(currentPos);
+                questionShown += currentPos;
+                if (questionShown < questions.size()) {
+                    adapter = new CalculationAdapters(getApplicationContext(), questions.toArray(new Physics[0]), currentPos); // Create a new adapter with the updated start position
+                    recyclerView.setAdapter(adapter); // Set the new adapter
+                } else {
+                    showScore();
+                }
+            }
+        });
     }
 
-    public void CheckAnswer(View view) {
-        boolean proceed =false;
-        double userAns = Double.MAX_VALUE;
-        try {
-            int selectedId = radiosGroup.getCheckedRadioButtonId();
-            RadioButton selected = findViewById(selectedId);
-            userAns = Double.parseDouble(selected.getText().toString());
-            radiosGroup.clearCheck();
-        }catch (Exception e){
-            if(btn.getText().equals("Try Again")){
-                proceed=false;
-            }else {
-                proceed = true;
-                Toast.makeText(getApplicationContext(), "Please Choose an answer", Toast.LENGTH_SHORT).show();
-            }
-        }
-        if(!proceed) {
-            if (userAns == currentQuestion.getAnswer() &&! btn.getText().equals("Try Again")) {
-                userScore += currentQuestion.getScore();
-                Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
-
-            } else if(btn.getText().equals("Try Again")) {
-
-            }else{
-                Toast.makeText(getApplicationContext(), "Wrong answer try again Next time", Toast.LENGTH_SHORT).show();
-            }
-            goToNextQuestion();
-
-        }
-
+    private void showScore() {
+        Intent intent = new Intent(Calculation.this, CalculationFinalScreen.class);
+        if (CalculationAdapters.userScore > 20)
+            intent.putExtra("Score", "Congratulations\nYour score is " + CalculationAdapters.userScore);
+        else
+            intent.putExtra("Score", "Try harder next time\nYour score is " + CalculationAdapters.userScore);
+        CalculationAdapters.userScore = 0;
+        startActivity(intent);
+        finish();
     }
 
-    public void ShowHint(View view) {
-        Toast.makeText(getApplicationContext(),currentQuestion.getHint(),Toast.LENGTH_LONG).show();
-    }
-    private void goToNextQuestion(){
-        btn.setText("Check Answer");
-
-        imgbtn.setVisibility(View.VISIBLE);
-        if(questionNumber <questions.size()) {
-            radiosGroup.setVisibility(View.VISIBLE);
-            currentQuestion = (CalculateQuestions) questions.get(questionNumber++);
-            question.setText(currentQuestion.getContext());
-            motivation.setText(currentQuestion.getEncouraging_phrase());
-            Random rand = new Random();
-            int[] random = new int[4];
-            int x = questions.size();
-            for(int i =0;i<random.length;i++) {
-                int qNum = rand.nextInt(100);
-                random[i] = qNum;
-            }
-            r1.setText(random[0]+"");
-            r2.setText(random[1]+"");
-            r3.setText(currentQuestion.getAnswer() + "");
-            r4.setText(random[3]+"");
-
-        }else{
-            btn.setText("Try Again");
-            imgbtn.setVisibility(View.GONE);
-            questionNumber =0;
-            radiosGroup.setVisibility(View.GONE);
-            if(userScore>25)
-                question.setText("Congratulations you have finished the test with score:"+userScore);
-            else{
-                question.setText("Try Harder next time you have finished the test with score:" +userScore);
-            }
-            userScore=0;
-        }
-
-    }
 }

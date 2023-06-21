@@ -4,8 +4,9 @@ public abstract class Physics {
     private String context;
     private int score;
     private String encouraging_phrase;
-    private  String hint;
-    public Physics(String context, int score, String encouraging_phrase,String hint) {
+    private String hint;
+
+    public Physics(String context, int score, String encouraging_phrase, String hint) {
         this.context = context;
         this.score = score;
         this.encouraging_phrase = encouraging_phrase;
@@ -13,6 +14,7 @@ public abstract class Physics {
     }
 
     abstract public String give_Encouraging_phrase();
+
     abstract public String giveHint();
 
     public String getContext() {
@@ -38,10 +40,12 @@ public abstract class Physics {
     public void setEncouraging_phrase(String encouraging_phrase) {
         this.encouraging_phrase = encouraging_phrase;
     }
-    public String getHint(){
+
+    public String getHint() {
         return hint;
     }
-    public void setHint(String hint){
+
+    public void setHint(String hint) {
         this.hint = hint;
     }
 }
